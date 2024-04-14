@@ -6,10 +6,10 @@ const bicrypt = require('bcrypt')
 const getUser = async (req, res) => {
     try {
            // Check if user id in authenticate middle and the one in url match
-           if (req.user._id.toString() !== req.params.id) {
-            return res.status(401).json({ message: "Not authorized" });
-        }
-        const user = await User.findOne({ _id: req.user._id });
+            if (req.user._id.toString() !== req.params.id) {
+                return res.status(401).json({ message: "Not authorized" });
+            }
+        const user = await User.findOne({ _id: req.params.id });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -40,6 +40,7 @@ const createUser = async (req, res) => {
         // Hash the password
       
 
+        const hashedPassword = bicrypt.hashSync(password, 10);
         // Create a new user in the database
         const newUser = await User.create({ name, email, password: hashedPassword });
         token = generateToken(newUser._id)
