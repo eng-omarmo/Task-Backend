@@ -1,6 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
-
+const cors= require('cors')
 const connectDB = require('./config/db')
 const app = express()
 
@@ -11,6 +11,7 @@ app.listen(Port, () => {
 })
 connectDB()
 app.use(express.json())
+app.use(cors())
 
 app.use('/api/tasks', require('./Route/tasksRoute'))
 

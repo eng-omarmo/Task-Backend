@@ -38,8 +38,6 @@ const createUser = async (req, res) => {
         }
 
         // Hash the password
-      
-
         const hashedPassword = bicrypt.hashSync(password, 10);
         // Create a new user in the database
         const newUser = await User.create({ name, email, password: hashedPassword });
@@ -154,5 +152,5 @@ module.exports = {
     createUser,
     updateUser,
     deleteUser,
-loginUser
+    loginUser
 }
